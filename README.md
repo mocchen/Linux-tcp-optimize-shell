@@ -68,6 +68,30 @@ sudo ./optimize_fix.sh --optimize
 
 不想改权限时可用 `sudo bash optimize_fix.sh`。
 
+### 通过 raw 链接运行（免克隆）
+
+直接从 `mochen` 分支拉取最新脚本并执行，适合在新机器上快速使用：
+
+```bash
+curl -fsSL -o /tmp/optimize_fix.sh \
+  https://raw.githubusercontent.com/mocchen/Linux-tcp-optimize-shell/refs/heads/mochen/optimize_fix.sh
+sudo bash /tmp/optimize_fix.sh
+```
+
+不想落盘时，可以用 `bash -c` 包一层（stdin 仍然留给交互问答）：
+
+```bash
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/mocchen/Linux-tcp-optimize-shell/refs/heads/mochen/optimize_fix.sh)"
+```
+
+运行前建议先审查内容：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/mocchen/Linux-tcp-optimize-shell/refs/heads/mochen/optimize_fix.sh | less
+```
+
+> ⚠️ 不要用 `curl … | sudo bash` 直接管道执行：脚本的交互问答从 stdin 读取，管道会让脚本把自身内容当成输入，所有询问都会立即 EOF。请先落盘，或用上面的 `bash -c "$(curl …)"` 形式。
+
 ---
 
 ## 命令行用法
